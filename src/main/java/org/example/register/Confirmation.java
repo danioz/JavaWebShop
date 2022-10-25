@@ -14,8 +14,8 @@ public class Confirmation extends AbstractComponent {
         super(driver);
     }
 
-    public String getRegisterNotification() {
-        return registerNotification.getText().trim();
+    public boolean verifyRegisterNotification(String notification) {
+        return registerNotification.getText().trim().equalsIgnoreCase(notification);
     }
 
     @Override

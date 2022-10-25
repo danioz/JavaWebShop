@@ -28,7 +28,7 @@ public class LoginTest extends BaseTest {
 
         loginPage.getReturningCustomer().logInToApplication(email, password);
 
-        Assert.assertEquals(homePage.getHeaderBar().getLoggedUser(), email);
+        Assert.assertTrue(homePage.getHeaderBar().isLoggedUser(email));
     }
 
     @DataProvider

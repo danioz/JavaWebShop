@@ -1,7 +1,5 @@
 package org.example.test;
 
-import com.github.javafaker.Faker;
-
 import org.example.home.HomePage;
 import org.example.register.RegisterPage;
 import org.testng.Assert;
@@ -34,8 +32,8 @@ public class RegisterTest extends BaseTest {
 
         registerPage.getPersonalDetails().registerNewUser("M", fName, lName, eMail, "Pass1234!", "Pass1234!");
 
-        Assert.assertEquals(registerPage.getConfirmation().getRegisterNotification(), "Your registration completed");
-        Assert.assertEquals(homePage.getHeaderBar().getLoggedUser(), eMail);
+        Assert.assertTrue(registerPage.getConfirmation().verifyRegisterNotification("Your registration completed"));
+        Assert.assertTrue(homePage.getHeaderBar().isLoggedUser(eMail));
 
     }
 }

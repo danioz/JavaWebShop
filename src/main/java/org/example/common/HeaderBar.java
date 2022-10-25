@@ -1,5 +1,6 @@
 package org.example.common;
 
+import org.example.home.HomePage;
 import org.example.login.LoginPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,24 +27,27 @@ public class HeaderBar extends AbstractComponent{
         super(driver);
     }
 
-    public void proceedToLogin() {
+    public LoginPage proceedToLogin() {
          this.logInLink.click();
+         return new LoginPage(driver);
     }
 
-    public void logOUt() {
+    public HomePage logOUt() {
          this.logOutLink.click();
+         return new HomePage(driver);
     }
 
-    public void proceedToRegister() {
+    public LoginPage proceedToRegister() {
          this.registerLink.click();
+         return new LoginPage(driver);
     }
 
     public void proceedToShoppingCart() {
          this.shoppingCartLink.click();
     }
 
-    public String getLoggedUser() {
-        return this.accountLink.getText();
+    public boolean isLoggedUser(String email) {
+        return this.accountLink.getText().equalsIgnoreCase(email);
     }
 
     @Override

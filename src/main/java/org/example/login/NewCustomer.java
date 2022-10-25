@@ -1,6 +1,7 @@
 package org.example.login;
 
 import org.example.common.AbstractComponent;
+import org.example.register.RegisterPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,8 +15,9 @@ public class NewCustomer extends AbstractComponent {
         super(driver);
     }
 
-    public void proceedToRegister() {
+    public RegisterPage proceedToRegister() {
         this.registerButton.click();
+        return new RegisterPage(driver);
     }
 
     @Override
