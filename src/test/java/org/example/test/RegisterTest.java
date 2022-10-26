@@ -5,17 +5,20 @@ import org.example.register.RegisterPage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.example.utils.RandomUser;
+import org.utils.UserModel;
 
 public class RegisterTest extends BaseTest {
 
     private HomePage homePage;
     private RegisterPage registerPage;
+    private UserModel userData;
 
     @BeforeTest
     public void setupPages() {
         this.homePage = new HomePage(driver);
         this.registerPage = new RegisterPage(driver);
-
+        this.userData = RandomUser.generateRandomUser();
     }
 
     @Test
@@ -26,14 +29,10 @@ public class RegisterTest extends BaseTest {
         homePage.getHeaderBar().proceedToRegister();
         Assert.assertTrue(registerPage.getPersonalDetails().isDisplayed());
 
-        String fName = faker.name().firstName();
-        String lName = faker.name().lastName();
-        String eMail = fName+"."+lName+"@gmail.test";
-
-        registerPage.getPersonalDetails().registerNewUser("M", fName, lName, eMail, "Pass1234!", "Pass1234!");
+        registerPage.getPersonalDetails().registerNewUser(userData);
 
         Assert.assertTrue(registerPage.getConfirmation().verifyRegisterNotification("Your registration completed"));
-        Assert.assertTrue(homePage.getHeaderBar().isLoggedUser(eMail));
+        Assert.assertTrue(homePage.getHeaderBar().isLoggedUser(userData.geteMail()));
 
     }
 }

@@ -1,6 +1,5 @@
 package org.example.login;
 
-import org.apache.commons.logging.Log;
 import org.example.common.AbstractComponent;
 import org.example.home.HomePage;
 import org.openqa.selenium.WebDriver;

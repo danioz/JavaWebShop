@@ -5,6 +5,7 @@ import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.utils.UserModel;
 
 public class PersonalDetails extends AbstractComponent {
 
@@ -36,8 +37,8 @@ public class PersonalDetails extends AbstractComponent {
         super(driver);
     }
 
-    public void registerNewUser(String gender, String firstName, String lastName, String eMail, String password, String confirmPassword){
-        switch (gender){
+    public void registerNewUser(UserModel userData){
+        switch (userData.getGender()){
             case "M":
                 maleButton.click();
                 break;
@@ -47,11 +48,11 @@ public class PersonalDetails extends AbstractComponent {
             default:
                 throw new InvalidArgumentException("Gender field value is invalid.");
         }
-        this.firstName.sendKeys(firstName);
-        this.lastName.sendKeys(lastName);
-        this.email.sendKeys(eMail);
-        this.password.sendKeys(password);
-        this.confirmedPassword.sendKeys(confirmPassword);
+        this.firstName.sendKeys(userData.getfName());
+        this.lastName.sendKeys(userData.getlName());
+        this.email.sendKeys(userData.geteMail());
+        this.password.sendKeys(userData.getPassword());
+        this.confirmedPassword.sendKeys(userData.getPassword());
         this.registerButton.click();
     }
 
