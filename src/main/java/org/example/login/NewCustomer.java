@@ -5,6 +5,7 @@ import org.example.register.RegisterPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 public class NewCustomer extends AbstractComponent {
 
@@ -21,7 +22,7 @@ public class NewCustomer extends AbstractComponent {
     }
 
     @Override
-    public boolean isDisplayed() {
-        return this.wait.until((d) -> this.registerButton.isDisplayed());
+    public void isDisplayed() {
+        Assert.assertTrue(this.wait.until((d) -> this.registerButton.isDisplayed()));
     }
 }

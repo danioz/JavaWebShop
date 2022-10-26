@@ -2,9 +2,11 @@ package org.example.common;
 
 import org.example.home.HomePage;
 import org.example.login.LoginPage;
+import org.example.register.RegisterPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 public class HeaderBar extends AbstractComponent{
 
@@ -37,21 +39,21 @@ public class HeaderBar extends AbstractComponent{
          return new HomePage(driver);
     }
 
-    public LoginPage proceedToRegister() {
+    public RegisterPage proceedToRegister() {
          this.registerLink.click();
-         return new LoginPage(driver);
+         return new RegisterPage(driver);
     }
 
     public void proceedToShoppingCart() {
          this.shoppingCartLink.click();
     }
 
-    public boolean isLoggedUser(String email) {
-        return this.accountLink.getText().equalsIgnoreCase(email);
+    public void validateLoggedUser(String email) {
+        Assert.assertTrue(this.accountLink.getText().equalsIgnoreCase(email));
     }
 
     @Override
-    public boolean isDisplayed() {
-        return this.wait.until((d) -> this.logInLink.isDisplayed());
+    public void isDisplayed() {
+        Assert.assertTrue(this.wait.until((d) -> this.logInLink.isDisplayed()));
     }
 }

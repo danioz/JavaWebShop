@@ -2,10 +2,9 @@ package org.example.test;
 
 import org.example.home.HomePage;
 import org.example.register.RegisterPage;
-import org.testng.Assert;
+import org.example.utils.RandomUser;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import org.example.utils.RandomUser;
 import org.utils.UserModel;
 
 public class RegisterTest extends BaseTest {
@@ -22,17 +21,25 @@ public class RegisterTest extends BaseTest {
     }
 
     @Test
+    public void openHomePage() {
+        homePage.goTo()
+                .getHeaderBar()
+                .isDisplayed();
+    }
+
+    @Test(dependsOnMethods = "openHomePage")
     public void registerTest() {
-        homePage.goTo();
-        Assert.assertTrue(homePage.getHeaderBar().isDisplayed());
+        homePage.getHeaderBar()
+                .proceedToRegister()
+                .getPersonalDetails()
+                .isDisplayed();
 
-        homePage.getHeaderBar().proceedToRegister();
-        Assert.assertTrue(registerPage.getPersonalDetails().isDisplayed());
+        registerPage.getPersonalDetails()
+                .registerNewUser(userData)
+                .getConfirmation()
+                .verifyRegisterNotification("Your registration completed");
 
-        registerPage.getPersonalDetails().registerNewUser(userData);
-
-        Assert.assertTrue(registerPage.getConfirmation().verifyRegisterNotification("Your registration completed"));
-        Assert.assertTrue(homePage.getHeaderBar().isLoggedUser(userData.geteMail()));
-
+        homePage.getHeaderBar()
+                .validateLoggedUser(userData.geteMail());
     }
 }

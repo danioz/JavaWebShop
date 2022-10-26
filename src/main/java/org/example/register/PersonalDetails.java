@@ -5,6 +5,7 @@ import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 import org.utils.UserModel;
 
 public class PersonalDetails extends AbstractComponent {
@@ -37,7 +38,7 @@ public class PersonalDetails extends AbstractComponent {
         super(driver);
     }
 
-    public void registerNewUser(UserModel userData){
+    public RegisterPage registerNewUser(UserModel userData){
         switch (userData.getGender()){
             case "M":
                 maleButton.click();
@@ -54,10 +55,11 @@ public class PersonalDetails extends AbstractComponent {
         this.password.sendKeys(userData.getPassword());
         this.confirmedPassword.sendKeys(userData.getPassword());
         this.registerButton.click();
+        return new RegisterPage(driver);
     }
 
     @Override
-    public boolean isDisplayed() {
-        return this.wait.until((d) -> this.email.isDisplayed());
+    public void isDisplayed() {
+        Assert.assertTrue(this.wait.until((d) -> this.email.isDisplayed()));
     }
 }

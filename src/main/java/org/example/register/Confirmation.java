@@ -4,6 +4,7 @@ import org.example.common.AbstractComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 public class Confirmation extends AbstractComponent {
 
@@ -14,12 +15,12 @@ public class Confirmation extends AbstractComponent {
         super(driver);
     }
 
-    public boolean verifyRegisterNotification(String notification) {
-        return registerNotification.getText().trim().equalsIgnoreCase(notification);
+    public void verifyRegisterNotification(String notification) {
+        Assert.assertTrue(registerNotification.getText().trim().equalsIgnoreCase(notification));
     }
 
     @Override
-    public boolean isDisplayed() {
-        return this.wait.until((d) -> this.registerNotification.isDisplayed());
+    public void isDisplayed() {
+        Assert.assertTrue(this.wait.until((d) -> this.registerNotification.isDisplayed()));
     }
 }

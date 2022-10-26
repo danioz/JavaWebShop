@@ -5,6 +5,7 @@ import org.example.home.HomePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 public class ReturningCustomer extends AbstractComponent {
 
@@ -36,7 +37,7 @@ public class ReturningCustomer extends AbstractComponent {
     }
 
     @Override
-    public boolean isDisplayed() {
-        return this.wait.until((d) -> this.loginButton.isDisplayed());
+    public void isDisplayed() {
+        Assert.assertTrue(this.wait.until((d) -> this.loginButton.isDisplayed()));
     }
 }

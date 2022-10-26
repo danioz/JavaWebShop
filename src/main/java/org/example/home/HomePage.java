@@ -14,8 +14,9 @@ public class HomePage {
         this.headerBar = PageFactory.initElements(driver, HeaderBar.class);
     }
 
-    public void goTo() {
+    public HomePage goTo() {
         this.driver.get("https://demowebshop.tricentis.com/");
+        return this;
     }
 
     public HeaderBar getHeaderBar() {
