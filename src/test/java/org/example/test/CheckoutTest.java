@@ -1,11 +1,7 @@
 package org.example.test;
 
-import org.example.cart.CartPage;
-import org.example.checkout.CheckoutPage;
 import org.example.checkout.CreditCard;
 import org.example.checkout.IPaymentMethod;
-import org.example.home.HomePage;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -14,20 +10,41 @@ import java.util.Map;
 
 public class CheckoutTest extends BaseTest {
 
-    private CheckoutPage checkoutPage;
-    private HomePage homePage;
-    private CartPage cartPage;
-
-    @BeforeTest
-    public void setPages() {
-        this.homePage = new HomePage(driver);
-        this.checkoutPage = new CheckoutPage(driver);
-        this.cartPage = new CartPage(driver);
+    @Test
+    public void openHomePage() {
+        homePage.goTo()
+                .getHeaderBar()
+                .isDisplayed();
     }
 
-    @Test(dataProvider = "getData")
+    @Test(dataProvider = "getLoginData", dependsOnMethods = "openHomePage")
+    public void loginAsUser(String email, String password) {
+        homePage.getHeaderBar()
+                .proceedToLogin()
+                .getReturningCustomer()
+                .isDisplayed();
+
+        loginPage.getReturningCustomer()
+                .logInToApplication(email, password)
+                .getHeaderBar()
+                .validateLoggedUser(email);
+    }
+
+    @Test(dataProvider = "getData", dependsOnMethods = "loginAsUser")
     public void checkoutTest(IPaymentMethod paymentMethod, Map<String, String> paymentDetails) {
         this.homePage.goTo();
+        this.homePage.getCategories().isDisplayed();
+        this.homePage.getCategories()
+                .selectCategory("Apparel & Shoes"); //todo
+        this.productsPage.getProducts().isDisplayed();
+        this.productsPage.getProducts()
+                .selectProduct("Blue Jeans"); //todo
+        this.productsPage.getItem().isDisplayed();
+        this.productsPage.getItem()
+//                .selectSize("M")
+                .addQuantity(2)
+                .clickAddToCart();
+        this.homePage.getHeaderBar().proceedToShoppingCart();
         this.cartPage.getCheckout().isDisplayed();
         this.cartPage.getCheckout()
                 .checkoutCart();
@@ -40,6 +57,7 @@ public class CheckoutTest extends BaseTest {
                 .checkoutCart();
         this.checkoutPage.setPaymentMethod(paymentMethod);
         this.checkoutPage.pay(paymentDetails);
+        //todo
     }
 
     @DataProvider
@@ -50,6 +68,14 @@ public class CheckoutTest extends BaseTest {
 
         return new Object[][]{
                 {new CreditCard(), cc}
+        };
+    }
+
+    @DataProvider
+    public Object[][] getLoginData() {
+
+        return new Object[][]{
+                {"d.zet@gmail.test.com", "Password1234!"}
         };
     }
 }
