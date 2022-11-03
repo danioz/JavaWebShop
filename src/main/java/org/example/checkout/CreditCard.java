@@ -1,12 +1,15 @@
 package org.example.checkout;
 
+import org.example.common.AbstractComponent;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 import java.util.Map;
 
-public class CreditCard implements IPaymentMethod{
+public class CreditCard extends AbstractComponent implements IPaymentMethod{
 
     @FindBy(css = "#paymentmethod_2")
     private WebElement ccPaymentCheckbox;
@@ -17,7 +20,7 @@ public class CreditCard implements IPaymentMethod{
     @FindBy(css = "#CardholderName")
     private WebElement cardHolderName;
 
-    @FindBy(css = "#CardholderName")
+    @FindBy(css = "#CardNumber")
     private WebElement cardNumber;
 
     @FindBy(css = "#ExpireMonth")
@@ -31,20 +34,32 @@ public class CreditCard implements IPaymentMethod{
 
     private Buttons buttons;
 
+    public CreditCard(WebDriver driver) {
+        super(driver);
+    }
+
     @Override
     public void enterPaymentInformation(Map<String, String> paymentDetails) {
-        //todo
+        this.wait.until((d) ->this.ccPaymentCheckbox.isDisplayed());
         this.ccPaymentCheckbox.click();
-        this.buttons.pressContinue("continueButtonPaymentMethod");
-        Select creditCardDrp = new Select(this.creditCard);
-        creditCardDrp.selectByIndex(1);
-        this.cardHolderName.sendKeys(paymentDetails.get(""));
-        this.cardNumber.sendKeys(paymentDetails.get(""));
-        Select monthDrpD = new Select(this.expirationMonth);
-        monthDrpD.selectByIndex(2);
-        Select yearDrpD = new Select(this.expirationYear);
-        yearDrpD.selectByIndex(2);
-        this.cardCode.sendKeys(paymentDetails.get(""));
-        this.buttons.pressContinue("continueButtonPaymentInformation");
+        this.buttons.pressContinue("PaymentMethod");
+
+        this.wait.until((d) ->this.creditCard.isDisplayed());
+        new Select(this.creditCard).selectByValue(paymentDetails.get("creditCard"));
+        this.cardHolderName.sendKeys(paymentDetails.get("cardHolder"));
+        this.cardNumber.sendKeys(paymentDetails.get("cardNumber"));
+        new Select(this.expirationMonth).selectByValue(paymentDetails.get("expirationMonth"));
+        new Select(this.expirationYear).selectByValue(paymentDetails.get("expirationYear"));
+        this.cardCode.sendKeys(paymentDetails.get("cardCode"));
+    }
+
+    @Override
+    public void setContinueButtons(Buttons buttons) {
+        this.buttons = buttons;
+    }
+
+    @Override
+    public void isDisplayed() {
+        Assert.assertTrue(this.wait.until((d) -> this.creditCard.isDisplayed()));
     }
 }

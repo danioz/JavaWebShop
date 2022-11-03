@@ -31,6 +31,7 @@ public class BaseTest {
     public void setupDriver() {
         WebDriverManager.chromedriver().setup();
         this.driver = new ChromeDriver();
+        this.driver.manage().window().maximize();
         faker = new Faker();
         this.userData = RandomUser.generateRandomUser();
     }

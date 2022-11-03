@@ -4,6 +4,7 @@ import org.example.common.AbstractComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,24 +30,26 @@ public class Buttons extends AbstractComponent {
     }
 
     public void pressConfirm(){
+        this.wait.until((d) -> this.confirmButton.isDisplayed());
         this.confirmButton.click();
     }
 
-    public void pressContinue(String continueButton) {
+    public Buttons pressContinue(String continueButton) {
         Map<String, WebElement> buttons = new HashMap<>();
 
-        buttons.put("continueButtonBilling", continueButtonBilling);
-        buttons.put("continueButtonShipping", continueButtonShipping);
-        buttons.put("continueButtonShippingMethod", continueButtonShippingMethod);
-        buttons.put("continueButtonPaymentMethod", continueButtonPaymentMethod);
-        buttons.put("continueButtonPaymentInformation", continueButtonPaymentInformation);
+        buttons.put("Billing", continueButtonBilling);
+        buttons.put("Shipping", continueButtonShipping);
+        buttons.put("ShippingMethod", continueButtonShippingMethod);
+        buttons.put("PaymentMethod", continueButtonPaymentMethod);
+        buttons.put("PaymentInformation", continueButtonPaymentInformation);
 
+        this.wait.until((d) -> buttons.get(continueButton).isDisplayed());
         buttons.get(continueButton).click();
+        return this;
     }
-
 
     @Override
     public void isDisplayed() {
-
+        Assert.assertTrue(this.wait.until((d) -> this.continueButtonBilling.isDisplayed()));
     }
 }

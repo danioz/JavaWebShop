@@ -34,7 +34,7 @@ public class HeaderBar extends AbstractComponent{
          return new LoginPage(driver);
     }
 
-    public HomePage logOUt() {
+    public HomePage logout() {
          this.logOutLink.click();
          return new HomePage(driver);
     }

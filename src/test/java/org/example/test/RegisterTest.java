@@ -6,24 +6,28 @@ public class RegisterTest extends BaseTest {
 
     @Test
     public void openHomePage() {
-        homePage.goTo()
+        homePage
+                .goTo()
                 .getHeaderBar()
                 .isDisplayed();
     }
 
     @Test(dependsOnMethods = "openHomePage")
     public void registerTest() {
-        homePage.getHeaderBar()
+        homePage
+                .getHeaderBar()
                 .proceedToRegister()
                 .getPersonalDetails()
                 .isDisplayed();
 
-        registerPage.getPersonalDetails()
+        registerPage
+                .getPersonalDetails()
                 .registerNewUser(userData)
                 .getConfirmation()
                 .verifyRegisterNotification("Your registration completed");
 
-        homePage.getHeaderBar()
+        homePage
+                .getHeaderBar()
                 .validateLoggedUser(userData.geteMail());
     }
 }

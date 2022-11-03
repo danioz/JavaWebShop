@@ -15,15 +15,20 @@ public class LoginTest extends BaseTest {
     @Test(dataProvider = "getData", dependsOnMethods = "openHomePage")
     public void loginTest(String email, String password) {
 
-        homePage.getHeaderBar()
+        homePage
+                .getHeaderBar()
                 .proceedToLogin()
                 .getReturningCustomer()
                 .isDisplayed();
 
-        loginPage.getReturningCustomer()
+        loginPage
+                .getReturningCustomer()
                 .logInToApplication(email, password)
                 .getHeaderBar()
                 .validateLoggedUser(email);
+        homePage
+                .getHeaderBar()
+                .logout();
     }
 
     @DataProvider
