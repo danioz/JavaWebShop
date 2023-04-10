@@ -40,17 +40,17 @@ public class CreditCard extends AbstractComponent implements IPaymentMethod{
 
     @Override
     public void enterPaymentInformation(Map<String, String> paymentDetails) {
-        this.wait.until((d) ->this.ccPaymentCheckbox.isDisplayed());
-        this.ccPaymentCheckbox.click();
-        this.buttons.pressContinue("PaymentMethod");
+        wait.until((d) -> ccPaymentCheckbox.isDisplayed());
+        ccPaymentCheckbox.click();
+        buttons.pressContinue("PaymentMethod");
 
-        this.wait.until((d) ->this.creditCard.isDisplayed());
-        new Select(this.creditCard).selectByValue(paymentDetails.get("creditCard"));
-        this.cardHolderName.sendKeys(paymentDetails.get("cardHolder"));
-        this.cardNumber.sendKeys(paymentDetails.get("cardNumber"));
-        new Select(this.expirationMonth).selectByValue(paymentDetails.get("expirationMonth"));
-        new Select(this.expirationYear).selectByValue(paymentDetails.get("expirationYear"));
-        this.cardCode.sendKeys(paymentDetails.get("cardCode"));
+        this.wait.until((d) ->creditCard.isDisplayed());
+        new Select(creditCard).selectByValue(paymentDetails.get("creditCard"));
+        cardHolderName.sendKeys(paymentDetails.get("cardHolder"));
+        cardNumber.sendKeys(paymentDetails.get("cardNumber"));
+        new Select(expirationMonth).selectByValue(paymentDetails.get("expirationMonth"));
+        new Select(expirationYear).selectByValue(paymentDetails.get("expirationYear"));
+        cardCode.sendKeys(paymentDetails.get("cardCode"));
     }
 
     @Override
@@ -60,6 +60,6 @@ public class CreditCard extends AbstractComponent implements IPaymentMethod{
 
     @Override
     public void isDisplayed() {
-        Assert.assertTrue(this.wait.until((d) -> this.creditCard.isDisplayed()));
+        Assert.assertTrue(wait.until((d) -> creditCard.isDisplayed()));
     }
 }

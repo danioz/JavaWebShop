@@ -1,6 +1,6 @@
 package org.example.test;
 
-import org.example.checkout.*;
+import org.example.checkout.PaymentOptionFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -10,7 +10,7 @@ import java.util.Map;
 public class CheckoutTest extends BaseTest {
 
     @Test(dataProvider = "getData")
-    public void checkoutTest(IPaymentMethod paymentMethod, Map<String, String> paymentDetails) {
+    public void checkoutTest(String option, Map<String, String> paymentDetails) {
         homePage
                 .goTo()
                 .getHeaderBar()
@@ -61,7 +61,7 @@ public class CheckoutTest extends BaseTest {
                 .pressContinue("Shipping")
                 .pressContinue("ShippingMethod");
         checkoutPage
-                .setPaymentMethod(paymentMethod);
+                .setPaymentMethod(PaymentOptionFactory.get(option, driver));
         checkoutPage
                 .pay(paymentDetails);
         checkoutPage
@@ -103,10 +103,10 @@ public class CheckoutTest extends BaseTest {
         ck.put("message", "Mail Personal or Business Check, Cashier's Check or money order to:");
 
         return new Object[][]{
-                {new CreditCard(driver), cc},
-                {new CashOnDelivery(driver), cod},
-                {new PurchaseOrder(driver), po},
-                {new Check(driver), ck}
+                {"CC", cc},
+                {"COD", cod},
+                {"PO", po},
+                {"CH", ck}
         };
     }
 }
