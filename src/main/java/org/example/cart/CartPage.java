@@ -5,13 +5,10 @@ import org.openqa.selenium.support.PageFactory;
 
 public class CartPage {
 
-    private WebDriver driver;
-
-    private Dialog dialog;
-    private Checkout checkout;
+    private final Dialog dialog;
+    private final Checkout checkout;
 
     public CartPage(final WebDriver driver) {
-        this.driver = driver;
         this.checkout = PageFactory.initElements(driver, Checkout.class);
         this.dialog = PageFactory.initElements(driver, Dialog.class);
     }

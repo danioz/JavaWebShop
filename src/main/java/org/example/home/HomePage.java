@@ -7,9 +7,9 @@ import org.openqa.selenium.support.PageFactory;
 
 public class HomePage {
 
-    private WebDriver driver;
-    private HeaderBar headerBar;
-    private Categories categories;
+    private final WebDriver driver;
+    private final HeaderBar headerBar;
+    private final Categories categories;
 
     public HomePage(final WebDriver driver) {
         this.driver= driver;

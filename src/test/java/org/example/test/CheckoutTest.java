@@ -67,7 +67,8 @@ public class CheckoutTest extends BaseTest {
         checkoutPage
                 .getButtons()
                 .pressContinue("PaymentInformation");
-        checkoutPage.getButtons()
+        checkoutPage
+                .getButtons()
                 .pressConfirm();
         checkoutPage
                 .getCompleted()

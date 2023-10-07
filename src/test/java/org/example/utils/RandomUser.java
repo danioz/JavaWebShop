@@ -10,8 +10,8 @@ public class RandomUser {
 
         String fName = faker.name().firstName();
         String lName = faker.name().lastName();
-        String eMail = fName + "." + lName + "@gmail.test";
-        String password = faker.code().gtin8();
+        String eMail = faker.internet().emailAddress();
+        String password = faker.internet().password();
 
         return new UserModel("M", fName, lName, eMail, password);
 

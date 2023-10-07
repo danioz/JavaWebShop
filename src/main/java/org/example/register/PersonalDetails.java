@@ -60,6 +60,6 @@ public class PersonalDetails extends AbstractComponent {
 
     @Override
     public void isDisplayed() {
-        Assert.assertTrue(this.wait.until((d) -> this.email.isDisplayed()));
+        Assert.assertTrue(this.wait.until((d) -> email.isDisplayed()));
     }
 }

@@ -1,6 +1,5 @@
 package org.example.test;
 
-import com.github.javafaker.Faker;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.example.cart.CartPage;
 import org.example.checkout.CheckoutPage;
@@ -11,6 +10,7 @@ import org.example.register.RegisterPage;
 import org.example.utils.RandomUser;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.utils.UserModel;
@@ -18,22 +18,31 @@ import org.utils.UserModel;
 public class BaseTest {
 
     protected WebDriver driver;
-    protected Faker faker;
     protected HomePage homePage;
     protected LoginPage loginPage;
     protected CheckoutPage checkoutPage;
     protected CartPage cartPage;
     protected ProductsPage productsPage;
     protected RegisterPage registerPage;
-    protected UserModel userData;
+
 
     @BeforeTest
     public void setupDriver() {
         WebDriverManager.chromedriver().setup();
-        this.driver = new ChromeDriver();
+
+        ChromeOptions options = new ChromeOptions();
+        options.setHeadless(false);
+        options.addArguments("disable-infobars"); // disabling infobars
+        options.addArguments("--disable-extensions"); // disabling extensions
+        options.addArguments("--disable-gpu"); // applicable to Windows os only
+        options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
+        options.addArguments("--no-sandbox"); // Bypass OS security model
+        options.addArguments("--disable-in-process-stack-traces");
+        options.addArguments("--disable-logging");
+        options.addArguments("--log-level=3");
+        options.addArguments("--remote-allow-origins=*");
+        this.driver = new ChromeDriver(options);;
         this.driver.manage().window().maximize();
-        faker = new Faker();
-        this.userData = RandomUser.generateRandomUser();
     }
     @BeforeTest
     public void setupPages() {

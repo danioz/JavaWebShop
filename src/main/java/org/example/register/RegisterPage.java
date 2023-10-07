@@ -5,12 +5,10 @@ import org.openqa.selenium.support.PageFactory;
 
 public class RegisterPage {
 
-    private WebDriver driver;
-    private PersonalDetails personalDetails;
-    private Confirmation confirmation;
+    private final PersonalDetails personalDetails;
+    private final Confirmation confirmation;
 
     public RegisterPage(final WebDriver driver){
-        this.driver = driver;
         this.personalDetails = PageFactory.initElements(driver, PersonalDetails.class);
         this.confirmation = PageFactory.initElements(driver, Confirmation.class);
     }

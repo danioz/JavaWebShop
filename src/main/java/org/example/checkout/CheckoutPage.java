@@ -7,13 +7,13 @@ import java.util.Map;
 
 public class CheckoutPage {
 
-    private WebDriver driver;
+    private final WebDriver driver;
 
     private IPaymentMethod paymentMethod;
 
-    private Buttons buttons;
+    private final Buttons buttons;
 
-    private Completed completed;
+    private final Completed completed;
 
     public CheckoutPage(final WebDriver driver) {
         this.driver = driver;

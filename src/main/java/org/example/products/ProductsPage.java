@@ -5,13 +5,10 @@ import org.openqa.selenium.support.PageFactory;
 
 public class ProductsPage {
 
-    private WebDriver driver;
-
-    private Products products;
-    private Item item;
+    private final Products products;
+    private final Item item;
 
     public ProductsPage(final WebDriver driver) {
-        this.driver = driver;
         this.products = PageFactory.initElements(driver, Products.class);
         this.item = PageFactory.initElements(driver, Item.class);
     }

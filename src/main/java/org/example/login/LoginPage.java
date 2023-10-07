@@ -5,11 +5,9 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
 
-    private WebDriver driver;
-    private ReturningCustomer returningCustomer;
+    private final ReturningCustomer returningCustomer;
 
     public LoginPage(final WebDriver driver) {
-        this.driver = driver;
         this.returningCustomer = PageFactory.initElements(driver, ReturningCustomer.class);
     }
 
