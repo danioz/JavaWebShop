@@ -19,19 +19,10 @@ public class CheckoutTest extends BaseTest {
                 .logInToApplication("d.zet@gmail.test.com", "Password1234!");
         homePage
                 .getCategories()
-                .isDisplayed();
-        homePage
-                .getCategories()
                 .selectCategory("Apparel & Shoes");
         productsPage
                 .getProducts()
-                .isDisplayed();
-        productsPage
-                .getProducts()
                 .selectProduct("Blue Jeans");
-        productsPage
-                .getItem()
-                .isDisplayed();
         productsPage
                 .getItem()
                 .addQuantity(2)
@@ -41,13 +32,7 @@ public class CheckoutTest extends BaseTest {
                 .proceedToShoppingCart();
         cartPage
                 .getCheckout()
-                .isDisplayed();
-        cartPage
-                .getCheckout()
                 .checkoutCart();
-        cartPage
-                .getDialog()
-                .isDisplayed();
         cartPage
                 .getDialog()
                 .closeDialog()
